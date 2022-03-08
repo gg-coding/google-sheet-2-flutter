@@ -13,23 +13,24 @@ class _HomeState extends State<Home> {
 
   getFeedbackFromSheet() async {
     var raw = await http.get(
-        "https://script.google.com/macros/s/AKfycbzbTEO2B2lxO_kEmH7juC9RLkZByycz_QViG7LOeaJ4FYB38gs/exec");
-
+        "https://script.google.com/macros/s/AKfycbxk9seTxVxsgWLM_eBQlaJ3dHvAVpCZidh8apLS4gBjOO5YvAIOPANOrCRMjgFefyspDw/exec");
+//https://script.google.com/macros/s/AKfycbxk9seTxVxsgWLM_eBQlaJ3dHvAVpCZidh8apLS4gBjOO5YvAIOPANOrCRMjgFefyspDw/exec
     var jsonFeedback = convert.jsonDecode(raw.body);
     print('this is json Feedback $jsonFeedback');
 
-    // feedbacks = jsonFeedback.map((json) => FeedbackModel.fromJson(json));
+    feedbacks = jsonFeedback.map((json) => FeedbackModel.fromJson(json));
 
     jsonFeedback.forEach((element) {
       print('$element THIS IS NEXT>>>>>>>');
       FeedbackModel feedbackModel = new FeedbackModel();
-      feedbackModel.name = element['name'];
-      feedbackModel.feedback = element['feedback'];
-      feedbackModel.profilePic = element['profile_pic'];
-      feedbackModel.source = element['source'];
-      feedbackModel.sourceUrl = element["source_url"];
+      feedbackModel.timestamp = element["timestamp"];
+      feedbackModel.typeapt = element["typeapt"];
+      feedbackModel.dateapt = element["dateapt"];
+      feedbackModel.resultapt = element["resultapt"];
+      feedbackModel.notes = element["notes"];
 
       feedbacks.add(feedbackModel);
+  
     });
 
     //print('${feedbacks[0]}');
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Students"),
+        title: Text("Test"),
         elevation: 0,
       ),
       body: Container(
@@ -53,11 +54,11 @@ class _HomeState extends State<Home> {
             itemCount: feedbacks.length,
             itemBuilder: (context, index) {
               return FeedbackTile(
-                profilePic: feedbacks[index].profilePic,
-                name: feedbacks[index].name,
-                source: feedbacks[index].source,
-                feedback: feedbacks[index].feedback,
-                sourceUrl: feedbacks[index].sourceUrl,
+                timestamp: feedbacks[index].timestamp,
+                typeapt: feedbacks[index].typeapt,
+                dateapt: feedbacks[index].dateapt,
+                resultapt: feedbacks[index].resultapt,
+                notes: feedbacks[index].notes
               );
             }),
       ),
@@ -66,9 +67,9 @@ class _HomeState extends State<Home> {
 }
 
 class FeedbackTile extends StatelessWidget {
-  final String profilePic, name, source, feedback, sourceUrl;
+  final String timestamp, typeapt, dateapt, resultapt, notes;
   FeedbackTile(
-      {this.profilePic, this.name, this.source, this.feedback, this.sourceUrl});
+      {this.timestamp, this.typeapt, this.dateapt, this.resultapt, this.notes});
 
   @override
   Widget build(BuildContext context) {
@@ -84,14 +85,14 @@ class FeedbackTile extends StatelessWidget {
                   width: 40,
                   child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(40)),
-                      child: Image.network(profilePic))),
+                      child: Image.network(resultapt))),
               SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name),
+                  Text(typeapt),
                   Text(
-                    'from $source',
+                    'from',
                     style: TextStyle(color: Colors.grey),
                   )
                 ],
@@ -99,7 +100,7 @@ class FeedbackTile extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16),
-          Text(feedback)
+          Text(dateapt)
         ],
       ),
     );

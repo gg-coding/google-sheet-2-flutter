@@ -1,28 +1,28 @@
 class FeedbackModel {
-  String profilePic;
-  String name;
-  String source;
-  String feedback;
-  String sourceUrl;
+  String timestamp;
+  String typeapt;
+  String dateapt;
+  String resultapt;
+  String notes;
 
   FeedbackModel(
-      {this.feedback, this.name, this.profilePic, this.source, this.sourceUrl});
+      {this.timestamp, this.typeapt, this.dateapt, this.resultapt, this.notes });
 
   factory FeedbackModel.fromJson(dynamic json) {
     return FeedbackModel(
-      feedback: "${json['feedback']}",
-      name: "${json['name']}",
-      profilePic: "${json['profile_pic']}",
-      source: "${json['source']}",
-      sourceUrl: "${json['source_url']}",
+      timestamp: "${json['timestamp']}",
+      typeapt: "${json['typeapt']}",
+      dateapt: "${json['dateapt']}",
+      resultapt: "${json['resultapt']}",
+      notes: "${json['notes']}",
     );
   }
 
   Map toJson() => {
-        "profile_pic": profilePic,
-        "source": source,
-        "source_url": sourceUrl,
-        "name": name,
-        "feedback": feedback
+        "timestamp": timestamp,
+        "typeapt": typeapt,
+        "dateapt": dateapt,
+        "resultapt": resultapt,
+        "notes": notes
       };
 }
