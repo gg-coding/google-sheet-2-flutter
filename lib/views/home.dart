@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_sheet_db/feedback_model.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +20,7 @@ class _HomeState extends State<Home> {
     var jsonFeedback = convert.jsonDecode(raw.body);
     print('this is json Feedback $jsonFeedback');
 
-    feedbacks = jsonFeedback.map((json) => FeedbackModel.fromJson(json));
+    //feedbacks = jsonFeedback.map((json) => FeedbackModel.fromJson(json));
 
     jsonFeedback.forEach((element) {
       print('$element THIS IS NEXT>>>>>>>');
@@ -30,6 +32,7 @@ class _HomeState extends State<Home> {
       feedbackModel.notes = element["notes"];
 
       feedbacks.add(feedbackModel);
+      print ('Length of FEEDBACKS: ${feedbacks.length}');
   
     });
 
@@ -66,6 +69,7 @@ class _HomeState extends State<Home> {
   }
 }
 
+
 class FeedbackTile extends StatelessWidget {
   final String timestamp, typeapt, dateapt, resultapt, notes;
   FeedbackTile(
@@ -74,35 +78,10 @@ class FeedbackTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                  height: 40,
-                  width: 40,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      child: Image.network(resultapt))),
-              SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(typeapt),
-                  Text(
-                    'from',
-                    style: TextStyle(color: Colors.grey),
-                  )
-                ],
-              )
-            ],
+        child: ElevatedButton(
+          child: Text(timestamp,style: TextStyle(color: Colors.red),
           ),
-          SizedBox(height: 16),
-          Text(dateapt)
-        ],
-      ),
+        )
     );
   }
 }
