@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sheet_db/feedback_model.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +9,9 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
+
+
+
 
 class _HomeState extends State<Home> {
   List<FeedbackModel> feedbacks = List<FeedbackModel>();
@@ -42,8 +45,24 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     getFeedbackFromSheet();
-    super.initState();
+    super.initState();initialization();
   }
+
+  void initialization() async {
+    // This is where you can initialize the resources needed by your app while
+    // the splash screen is displayed.  Remove the following example because
+    // delaying the user experience is a bad design practice!
+    // ignore_for_file: avoid_print
+    print('ready in 3...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 2...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 1...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('go!');
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +97,23 @@ class FeedbackTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: ElevatedButton(
-          child: Text(timestamp,style: TextStyle(color: Colors.red),
-          ),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: (){},
+
+              child: Text(timestamp,style: TextStyle(color: Colors.red),
+
+              ),
+            ),
+            ElevatedButton(
+              onPressed: (){},
+              child: Text(notes),
+            )
+          ],
+
         )
+
     );
   }
 }

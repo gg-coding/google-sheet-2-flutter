@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_sheet_db/views/home.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MyApp());
 }
 
